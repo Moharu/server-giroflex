@@ -26,8 +26,13 @@ server.get('/off', function (req, res){
 });
 
 server.get('/state', function (req, res){
-    gpio.read(12, function (err, value){
-        res.send('' + value);
+    gpio.open(pin, "output", function (err){
+        gpio.read(12, function (err, value){
+            res.send('' + value);
+            console.log(err);
+            console.log(value);
+            gpio.close(12);
+        });
     });
 });
 
