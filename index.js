@@ -14,15 +14,21 @@ var pinState = function (pin, state){
 }
 
 
-server.get('/on', function(req, res){
+server.get('/on', function (req, res){
     pinState(12,1);
     res.end();
 });
 
 
-server.get('/off', function(req, res){
+server.get('/off', function (req, res){
     pinState(12,0);
     res.end();
+});
+
+server.get('/state', function (req, res){
+    gpio.read(12, function (err, value){
+        res.send('' + value);
+    });
 });
 
 server.listen(1234);
